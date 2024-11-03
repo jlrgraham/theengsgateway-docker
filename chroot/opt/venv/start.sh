@@ -41,6 +41,20 @@ if hasvalue $MQTT_PORT; then
 	fi
 fi
 
+if hasvalue $ENABLE_TLS; then
+	if ! [[ $ENABLE_TLS =~ (true|false) ]]; then
+		echo "WARNING : Wrong value for ENABLE_TLS environment variable, will use default - false"
+		ENABLE_TLS=false
+	fi
+fi
+
+if hasvalue $BLE; then
+	if ! [[ $BLE =~ (true|false) ]]; then
+		echo "WARNING : Wrong value for BLE environment variable, will use default - true"
+		BLE=true
+	fi
+fi
+
 if hasvalue $PUBLISH_ALL; then
 	if ! [[ $PUBLISH_ALL =~ (true|false) ]]; then
 		echo "WARNING : Wrong value for PUBLISH_ALL environment variable, will use default - true"
@@ -115,9 +129,13 @@ cat <<EOF> $CONFIG
     "pass": "$MQTT_PASSWORD",
     "user": "$MQTT_USERNAME",
     "port": ${MQTT_PORT:-1883},
+    "enable_tls": ${ENABLE_TLS:-false},
     "publish_topic": "${MQTT_PUB_TOPIC:-home/TheengsGateway/BTtoMQTT}",
     "subscribe_topic": "${MQTT_SUB_TOPIC:-home/TheengsGateway/commands}",
+    "lwt_topic": "${LWT_TOPIC:-home/TheengsGateway/LWT}",
+    "presence_topic": "${PRESENCE_TOPIC:-home/TheengsGateway/presence}",
     "publish_all": ${PUBLISH_ALL:-true},
+    "ble": ${BLE:-true},
     "ble_scan_time": ${SCAN_TIME:-60},
     "ble_time_between_scans": ${TIME_BETWEEN:-60},
     "log_level": "${LOG_LEVEL:-DEBUG}",
