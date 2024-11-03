@@ -16,7 +16,7 @@ FROM python:3.12
 
 SHELL ["/bin/bash", "-ec"]
 
-RUN apt-get update && apt-get install --no-install-recommends -y bluez && apt-get clean
+RUN apt-get update && apt-get install --no-install-recommends -y bluez jq && apt-get clean
 
 RUN python3 -m venv /opt/venv && /opt/venv/bin/pip install --upgrade pip
 RUN /opt/venv/bin/pip install TheengsGateway

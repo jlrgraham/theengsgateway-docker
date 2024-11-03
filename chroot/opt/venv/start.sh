@@ -147,6 +147,6 @@ cat <<EOF> $CONFIG
     "adapter": "${ADAPTER:-hci0}"
 }
 EOF
-cat $CONFIG
+cat $CONFIG | jq -r '. | .pass = "*"'
 
 python3 -m TheengsGateway $PARAMS
