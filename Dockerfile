@@ -1,11 +1,11 @@
-FROM python:3.9-bullseye
+FROM python:3.12
 
 SHELL ["/bin/bash", "-ec"]
 
-RUN apt update && apt install --no-install-recommends -y bluez
-RUN python3 -m venv /opt/venv && \
-        source /opt/venv/bin/activate && \
-	pip install --upgrade --extra-index-url=https://www.piwheels.org/simple pip TheengsGateway==0.5.0
+RUN apt update && apt install --no-install-recommends -y bluez && apt-get clean
+
+RUN python3 -m venv /opt/venv && /opt/venv/bin/pip install --upgrade pip
+RUN /opt/venv/bin/pip install TheengsGateway
 
 COPY chroot /
 
