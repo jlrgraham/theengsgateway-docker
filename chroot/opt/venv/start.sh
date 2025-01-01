@@ -123,7 +123,7 @@ fi
 cd $VIRTUAL_ENV
 
 echo "Creating config at $CONFIG ..."
-cat <<EOF> $CONFIG
+cat <<EOF > $CONFIG
 {
     "host": "$MQTT_HOST",
     "pass": "$MQTT_PASSWORD",
@@ -147,6 +147,6 @@ cat <<EOF> $CONFIG
     "adapter": "${ADAPTER:-hci0}"
 }
 EOF
-cat $CONFIG | jq -r '. | .pass = "*"'
+cat $CONFIG | jq -c '. | .pass = "*"'
 
 python3 -m TheengsGateway $PARAMS
